@@ -1,8 +1,10 @@
 console.log("我是main.js 2")
 
+let n = 1;
+
 getPage.onclick = () => {
     const request = new XMLHttpRequest()
-    request.open('GET', 'page2')
+    request.open('GET', `/page${n + 1}`)
     request.onreadystatechange = () => {
         if (request.readyState === 4 && request.status >= 200 && request.status < 300) {
             const array = JSON.parse(request.response)
@@ -11,6 +13,7 @@ getPage.onclick = () => {
                 li.textContent = item.id;
                 xxx.appendChild(li)
             })
+            n += 1
         }
     }
     request.send()//readState = 2
