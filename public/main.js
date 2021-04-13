@@ -1,5 +1,20 @@
 console.log("我是main.js 2")
 
+getXML.onclick = () => {
+    const request = new XMLHttpRequest()
+    request.open('GET', '/4.xml')
+    request.onreadystatechange = () => {
+        // 下载完成，但不知道是成功2xx还是失败4xx 5xx
+        if (request.readyState === 4 && request.status >= 200 && request.status < 300) {
+            console.log(request.responseXML)
+            const dom = request.responseXML
+            const text = dom.getElementsByTagName('warning')[0].textContent
+            console.log(text.trim())
+        }
+    }
+    request.send()//readState = 2
+}
+
 getHTML.onclick = () => {
     const request = new XMLHttpRequest()
     request.open('GET', '/3.html')
