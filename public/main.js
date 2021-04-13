@@ -31,6 +31,7 @@ getJS.onclick = () => {
     request.send()
 }
 
+/*
 getCSS.onclick = () => {
     const request = new XMLHttpRequest()
     request.open("GET", "/style.css")
@@ -49,4 +50,24 @@ getCSS.onclick = () => {
         console.log("失败了")
     }
     request.send()
+}
+*/
+
+getCSS.onclick = () => {
+    const request = new XMLHttpRequest()
+    request.open("GET", "/style.css")//readState = 1
+    request.onreadystatechange = () => {
+        console.log(request.readyState)
+
+        if (request.readyState === 4){
+            console.log("下载完成")
+            // 创建style标签
+            const style = document.createElement('style')
+            // 填写style内容
+            style.innerHTML = request.response
+            // 插入头里面
+            document.head.appendChild(style)
+        }
+    }
+    request.send()//readState = 2
 }
