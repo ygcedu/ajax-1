@@ -1,5 +1,20 @@
 console.log("我是main.js 2")
 
+getJS.onclick = () => {
+    const request = new XMLHttpRequest()
+    request.open('GET', '/2.js')
+    request.onload = () => {
+        // 创建script标签
+        const script = document.createElement('script')
+        // 填写script内容
+        script.innerHTML = request.response
+        // 插到身体里
+        document.body.appendChild(script)
+    }
+    request.onerror = () => {}
+    request.send()
+}
+
 getCSS.onclick = () => {
     const request = new XMLHttpRequest()
     request.open("GET", "/style.css")
