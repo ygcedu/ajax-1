@@ -1,10 +1,23 @@
 console.log("我是main.js 2")
 
+getJSON.onclick = () => {
+    const request = new XMLHttpRequest()
+    request.open('GET', '/5.json')
+    request.onreadystatechange = () => {
+        if (request.readyState === 4 && request.status >= 200 && request.status < 300) {
+            console.log(request.response)
+            const object = JSON.parse(request.response)
+            console.log(object)
+            myName.textContent = object.name
+        }
+    }
+    request.send()//readState = 2
+}
+
 getXML.onclick = () => {
     const request = new XMLHttpRequest()
     request.open('GET', '/4.xml')
     request.onreadystatechange = () => {
-        // 下载完成，但不知道是成功2xx还是失败4xx 5xx
         if (request.readyState === 4 && request.status >= 200 && request.status < 300) {
             console.log(request.responseXML)
             const dom = request.responseXML
