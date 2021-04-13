@@ -11,7 +11,8 @@ getHTML.onclick = () => {
         // 插入到身体里
         document.body.appendChild(div)
     }
-    request.onerror = () => {}
+    request.onerror = () => {
+    }
     request.send()
 }
 
@@ -59,14 +60,21 @@ getCSS.onclick = () => {
     request.onreadystatechange = () => {
         console.log(request.readyState)
 
-        if (request.readyState === 4){
+        // 下载完成，但不知道是成功2xx还是失败4xx 5xx
+        if (request.readyState === 4) {
             console.log("下载完成")
-            // 创建style标签
-            const style = document.createElement('style')
-            // 填写style内容
-            style.innerHTML = request.response
-            // 插入头里面
-            document.head.appendChild(style)
+            console.log(request.status)
+
+            if (request.status >= 200 && request.status < 300) {
+                // 创建style标签
+                const style = document.createElement('style')
+                // 填写style内容
+                style.innerHTML = request.response
+                // 插入头里面
+                document.head.appendChild(style)
+            } else {
+                alert("加载 CSS 失败")
+            }
         }
     }
     request.send()//readState = 2
