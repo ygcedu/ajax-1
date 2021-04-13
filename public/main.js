@@ -1,5 +1,21 @@
 console.log("我是main.js 2")
 
+getPage.onclick = () => {
+    const request = new XMLHttpRequest()
+    request.open('GET', 'page2')
+    request.onreadystatechange = () => {
+        if (request.readyState === 4 && request.status >= 200 && request.status < 300) {
+            const array = JSON.parse(request.response)
+            array.forEach(item => {
+                const li = document.createElement("li")
+                li.textContent = item.id;
+                xxx.appendChild(li)
+            })
+        }
+    }
+    request.send()//readState = 2
+}
+
 getJSON.onclick = () => {
     const request = new XMLHttpRequest()
     request.open('GET', '/5.json')
